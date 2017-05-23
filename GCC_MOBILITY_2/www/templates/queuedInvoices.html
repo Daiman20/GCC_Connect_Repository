@@ -1,4 +1,4 @@
-<ion-view  id="page7">
+<ion-view  id="page7" ng-controller="queuedInvoicesCtrl">
   <ion-nav-buttons side="left" class="has-header"> 
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header" >
@@ -10,7 +10,7 @@
     <ion-list id="facturasNoEnviadas-list2" ng-model="list_invoice">
      <!--<span translate="LABEL_INVOICE" class="input-label">Nº Factura</span>-->
       <ion-item class="item-icon-left balanced" id="facturasNoEnviadas-list-item1" ng-repeat="list in list_invoice" 
-      href="#/page1/page2" ng-click="viewInvoice(list.Invoice,list.Date)">
+      href="#/side-menu21/page4" ng-click="viewInvoice(list.Invoice,list.Date)">
         <i class="icon ion-document" ></i>{{ list.Invoice }}</ion-item>
 
     </ion-list>
