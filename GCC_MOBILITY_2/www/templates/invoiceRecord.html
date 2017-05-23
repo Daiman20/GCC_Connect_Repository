@@ -1,0 +1,28 @@
+<ion-view   id="page2">
+  <ion-content padding="true" class="has-header" ng-controller="registroFacturaCtrl">
+    <div>
+       
+    </div>
+    <h2 id="invoiceRecord-heading2" style="color:#00923F;text-align:center;">Invoice Record</h2>
+
+    <div class="spacer" style="width: 300px; height: 48px;"></div>
+    <form id="invoiceRecord-form1" class="list">
+    <h7 id="invoiceRecord-heading3" style="color:#00923F;text-align:center;">* You can enter or scan the invoice number</h7>
+      <div class="item item-input item-normal-label" id="registroFactura-input3">
+        <span translate="LABEL_INVOICE" class="input-label">Nº Factura</span>
+        <input type="text" placeholder="" id="factura" name="factura" ng-model="input_invoice" required>
+        <span class="input-label"><button  class="button button-icon icon ion-ios-camera-outline" ng-click="readCode()"></button></span>
+      </div>
+      <div class="spacer" style="width: 300px; height: 26px;"></div>
+      <label class="item item-input item-stacked-label" id="registroFactura-input4">
+        <span translate="LABEL_DATE" class="input-label">Fecha</span>
+        <input type="date" placeholder="" ng-model="input_date" name="fecha" id="DatePicker">
+      </label>
+      <div class="spacer" style="width: 300px; height: 23px;"></div>
+      <ion-toggle toggle-class="toggle-balanced" id="invoiceRecord-toggle1">Temporary record</ion-toggle>
+      
+    </form>
+	<button translate="BUTTON_SEND" id="registroFactura-button3" ng-hide="isConnected()" class="button button-balanced  button-block" ng-click="" >Enviar Factura</button>
+    <button translate="BUTTON_QUEUED" id="registroFactura-button3" ng-hide="isNoConnected()" class="button button-balanced  button-block" ng-click="saveLocalInvoice()">Colocar en cola</button>
+  </ion-content>
+</ion-view>

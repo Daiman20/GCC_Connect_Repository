@@ -1,0 +1,52 @@
+<ion-view title="login" hide-nav-bar="true">
+  <ion-content padding="true" class="manual-ios-statusbar-padding" ng-controller="loginCtrl">
+    <div>
+      <img src="img/B7wYhkKvT9uOu3BCtf7k_download.png" style="display: block; width: 60%; height: 60%; margin-left: auto; margin-right: auto;">
+    </div>
+    <div class="spacer" style="width: 300px; height: 50px;"></div>
+    <form id="login-form4" class="list">
+      <div class="item item-select" id="login-select3">
+        <span translate="LABEL_LENGUAGE" class="input-label">Select a language</span>
+        <select id="selectedLanguage" name="selectedLanguage" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)" >
+          <option translate="LABEL_LENGUAGE_ENGLISH" value="en">Ingles</option>
+          <option translate="LABEL_LENGUAGE_EPANISH" value="es">Español</option>
+        </select>
+
+      </div>
+      <md-progress-circular md-mode="determinate" value="5" md-diameter="100"></md-progress-circular>
+    </form>
+    <form id="login-form1" name="loginForm" class="list"  novalidate="">
+      <label class="item item-input item-stacked-label" id="login-input1">
+        <span translate="LABEL_USER" class="input-label">User</span>
+        <input type="text" placeholder="" id="user" name="user" ng-model="user" ng-minlength="1"  required>
+
+      </label>
+       <div class="padding">
+        <p class="error-label" ng-show="loginForm.user.$error.required"></p>
+        <p class="error-label" ng-show="loginForm.user.$invalid && !loginForm.user.$pristine" translate="MSG_ERROR_USER_INVALID">* user is invalid</p>
+        <p class="error-label" ng-show="loginForm.user.$error.minlength" translate="MSG_ERROR_USER_LENGTH">* length</p>
+      </div>
+      <div class="spacer" style="width: 300px; height: 1px;"></div>
+      <ion-list id="login-list1">
+        <label class="item item-input item-stacked-label" id="login-input2">
+          <span translate="LABEL_PASSWORD" class="input-label">Password</span>
+          <input type="password" placeholder="" id="password" name="password" ng-model="password" ng-minlength="1"  required>
+        </label>
+        <div class="padding">
+        <p class="error-label" ng-show="loginForm.password.$error.required"></p>
+        <p class="error-label"  ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" translate="MSG_ERROR_PASSWORD_INVALID">* password is invalid</p>
+        <p class="error-label" ng-show="loginForm.password.$error.minlength" translate="MSG_ERROR_PASSWORD_LENGTH">* length</p>
+        <p class="error-label" ng-show="valid.show" translate="MSG_ERROR_AUTENTIFICATION">* user/password invalid</p>
+      </div>
+      </ion-list>   
+
+
+      
+    </form>
+    <div class="spacer" style="width: 300px; height: 2px;"></div>
+    <button  translate="LOGIN" id="login-button1" class="button  button-block button-balanced" ng-disabled="loginForm.$invalid" ng-click="authenticate()">Log in</button>
+  </ion-content>
+   <div class="bar bar-footer bar-balanced">
+  <div class="footer "> <label class="label-footer">© 2017, General Cable Technologies Corporation.</label>  <br/> <label translate="LABEL_RIGHTS" class="label-footer">All rights reserved.</label> </div>
+</div>
+</ion-view>

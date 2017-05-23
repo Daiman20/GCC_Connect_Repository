@@ -1,0 +1,42 @@
+/* Empty. Add your own CSS if you like */
+.error-label{
+ color: red;
+}
+.text-footer{
+	color:white;
+}
+#loading-bar .bar {
+    background: #33ba3a;
+    height: 1px;
+     position: relative;
+  }
+
+ .bar-stable .button.button-clear{
+ 	color:#00923f;
+ }
+ .bar .title{
+   background-image: url("img/header.png");
+    background-repeat: no-repeat;
+    background-position: center; 
+ }
+   .bar .footer {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 5px;
+    min-width: 30px;
+    height: 100%;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: 500;
+     }
+
+     .label-footer{
+     	font-size: 12px;
+     }
