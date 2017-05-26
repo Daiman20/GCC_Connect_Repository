@@ -22,7 +22,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     LABEL_DATE :'Date',
     BUTTON_SEND :'Send',
     BUTTON_QUEUED :'Store Queued',
-    TITTLE_INVOICE_NOT_SEND:'Invoices not sent',
+    TITTLE_INVOICE_NOT_SEND:'Invoices list not sent',
     MSG_ERROR_PASSWORD_INVALID: '* Password is invalid',
     MSG_ERROR_PASSWORD_LENGTH: '* Password length is invalid',
     MSG_ERROR_AUTENTIFICATION: '* User/password invalid',
@@ -37,7 +37,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     NOT_CONNECTION :'There is no internet connection',
     LABEL_RIGHTS :'All rights reserved.',
     LABEL_PHONE : 'Phone',
-    LABEL_EMAIL : 'Email'
+    LABEL_EMAIL : 'Email',
+    TEXT_INFO:'* You can enter or scan the invoice number',
+    LABEL_TEMPORARY:'Temporary record'
       });
   $translateProvider.translations('es', {
     LOGIN: 'Ingresar',
@@ -50,7 +52,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     LABEL_DATE :'Fecha',
     BUTTON_SEND :'Enviar',
     BUTTON_QUEUED :'Almacenar en cola',
-    TITTLE_INVOICE_NOT_SEND:'Facturas no enviadas',
+    TITTLE_INVOICE_NOT_SEND:'Lista facturas no enviadas',
     MSG_ERROR_PASSWORD_INVALID: '* Contraseña invalida',
     MSG_ERROR_PASSWORD_LENGTH: '* El tamaño de es incorrecto',
     MSG_ERROR_AUTENTIFICATION: '* Usuario/Contraseña son incorrectos',
@@ -65,7 +67,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     NOT_CONNECTION :'No hay conexión de internet',
     LABEL_RIGHTS :'Todos los derechos reservados.',
     LABEL_PHONE : 'Teléfono',
-    LABEL_EMAIL : 'Email'
+    LABEL_EMAIL : 'Email',
+    TEXT_INFO:'* Puede ingresar o escanear el número de factura',
+    LABEL_TEMPORARY:'Registro temporal'
 
   });
   $translateProvider.preferredLanguage('en');

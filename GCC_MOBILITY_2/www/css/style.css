@@ -9,6 +9,7 @@
     background: #33ba3a;
     height: 1px;
      position: relative;
+     padding: 2px;
   }
 
  .bar-stable .button.button-clear{

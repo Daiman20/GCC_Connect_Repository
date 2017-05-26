@@ -52,14 +52,14 @@ function ($scope, $cordovaBarcodeScanner,BlankFactory,$cordovaToast,$translate) 
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams,BlankFactory,$translate,cfpLoadingBar,$location) {
    var keySession = 'Invoice'; 
+   console.log("Entro al controler");
    var getAllInvoice = JSON.parse(window.localStorage.getItem('Invoice'));
    $scope.list_invoice= getAllInvoice;
    $scope.load= function(){
     var getAllInvoice = JSON.parse(window.localStorage.getItem('Invoice'));
     if(getAllInvoice != null){
-      console.log(getAllInvoice.toString());
       $scope.list_invoice= getAllInvoice;
-      window.location="#/side-menu21/page7";
+      window.location.href="#/side-menu21/page7";
     }else{
        $translate('MSG_ALERT_NOT_INVOICE').then(function (translatedValue) { 
              BlankFactory.showToast(translatedValue, 'long', 'center');
