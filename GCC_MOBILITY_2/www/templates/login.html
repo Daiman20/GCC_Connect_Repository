@@ -1,24 +1,31 @@
 <ion-view title="login" hide-nav-bar="true">
   <ion-content padding="true" class="manual-ios-statusbar-padding" ng-controller="loginCtrl">
     <div>
-      <img src="img/B7wYhkKvT9uOu3BCtf7k_download.png" style="display: block; width: 60%; height: 60%; margin-left: auto; margin-right: auto;">
+      <img src="img/B7wYhkKvT9uOu3BCtf7k_download.png" style="display: block; width: 60%; height: 60%; margin-left: auto; margin-right: auto;"> 
     </div>
     <div class="spacer" style="width: 300px; height: 50px;"></div>
-    <form id="login-form4" class="list">
-      <div class="item item-select" id="login-select3">
-        <span translate="LABEL_LENGUAGE" class="input-label">Select a language</span>
-        <select id="selectedLanguage" name="selectedLanguage" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)" >
-          <option translate="LABEL_LENGUAGE_ENGLISH" value="en">Ingles</option>
-          <option translate="LABEL_LENGUAGE_EPANISH" value="es">Español</option>
-        </select>
+    <form id="login-form4" class="list"> 
+     <div class="alignClass"> 
 
-      </div>
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" translate="LABEL_LENGUAGE">Lenguage
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li><a ng-click="changeLanguage('en')" ><img   class="flag flag-us" /></a></li>
+    <li><a ng-click="changeLanguage('es')" ><img  class="flag flag-es" /></a></li>
+  </ul>
+</div>
+     </div>  
+
+     
+   
+ 
       <md-progress-circular md-mode="determinate" value="5" md-diameter="100"></md-progress-circular>
     </form>
     <form id="login-form1" name="loginForm" class="list"  novalidate="">
       <label class="item item-input item-stacked-label" id="login-input1">
         <span translate="LABEL_USER" class="input-label">User</span>
-        <input type="text" placeholder="" id="user" name="user" ng-model="user" ng-minlength="1"  required>
+        <input type="text" placeholder="" id="user" name="user" ng-model="user" ng-minlength="1" ng-change="lenguageLocalUser()" required>
 
       </label>
        <div class="padding">
@@ -46,7 +53,7 @@
     <div class="spacer" style="width: 300px; height: 2px;"></div>
     <button  translate="LOGIN" id="login-button1" class="button  button-block button-balanced" ng-disabled="loginForm.$invalid" ng-click="authenticate()">Log in</button>
   </ion-content>
-   <div class="bar bar-footer bar-balanced">
-  <div class="footer "> <label class="label-footer">© 2017, General Cable Technologies Corporation.</label>  <br/> <label translate="LABEL_RIGHTS" class="label-footer">All rights reserved.</label> </div>
+   <div class="bar bar-footer2 bar-balanced">
+  <div class="footer2 "> <label class="label-footer">© 2017, General Cable Technologies Corporation.</label>  <br/> <label translate="LABEL_RIGHTS" class="label-footer">All rights reserved.</label> </div>
 </div>
 </ion-view>

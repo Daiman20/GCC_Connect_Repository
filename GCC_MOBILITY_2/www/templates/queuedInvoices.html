@@ -5,12 +5,13 @@
   <h2 id="invoiceRecord-heading2" translate="TITTLE_INVOICE_NOT_SEND" style="color:#00923F;text-align:center;">Invoices list not sent</h2>
   <br/>
   <!--<ion-checkbox ng-model="allSend" translate="LABEL_SEND_ALL_INVOICE"  ng-click="sendAll()">Enviar todas</ion-checkbox>-->
-  <button translate="LABEL_SEND_ALL_INVOICE" class="button button-balanced  button-block" ng-click="" >Enviar Factura</button>
+  <button translate="LABEL_SEND_ALL_INVOICE" class="button button-balanced  button-block" ng-click="sendAll()" >Enviar Factura</button>
+  
   <br/>
     <ion-list id="facturasNoEnviadas-list2" ng-model="list_invoice">
      <!--<span translate="LABEL_INVOICE" class="input-label">Nº Factura</span>-->
       <ion-item class="item-icon-left balanced" id="facturasNoEnviadas-list-item1" ng-repeat="list in list_invoice" 
-      href="#/side-menu21/page4" ng-click="viewInvoice(list.Invoice,list.Date)">
+      href="#/side-menu21/page4" ng-click="viewInvoice(list.Invoice,list.Date,list.Flag)">
         <i class="icon ion-document" ></i>{{ list.Invoice }}</ion-item>
 
     </ion-list>

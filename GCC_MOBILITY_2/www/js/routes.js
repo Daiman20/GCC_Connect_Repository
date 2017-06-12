@@ -15,8 +15,6 @@ angular.module('app.routes', [])
     controller: 'loginCtrl'
   })
  
- 
- 
   
 .state('menu', {
     url: '/side-menu21',

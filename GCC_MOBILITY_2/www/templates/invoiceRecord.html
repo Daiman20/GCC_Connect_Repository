@@ -1,5 +1,5 @@
 <ion-view   id="page2">
-  <ion-content padding="true" class="has-header" ng-controller="registroFacturaCtrl">
+  <ion-content padding="true" class="has-header" ng-controller="invoiceRecordCtrl">
     <div>
        
     </div>
@@ -19,10 +19,11 @@
         <input type="date" placeholder="" ng-model="input_date" name="fecha" id="DatePicker">
       </label>
       <div class="spacer" style="width: 300px; height: 23px;"></div>
-      <ion-toggle toggle-class="toggle-balanced" id="invoiceRecord-toggle1" translate="LABEL_TEMPORARY" >Temporary record</ion-toggle>
-      
+      <ion-checkbox id="invoiceRecord-checkbox1" ng-model="flagTemporal"
+    ng-true-value="'S'" 
+    ng-false-value="'N'" ><a translate="LABEL_TEMPORARY"> temp</a></ion-checkbox>      
     </form>
-	<button translate="BUTTON_SEND" id="registroFactura-button3" ng-hide="isConnected()" class="button button-balanced  button-block" ng-click="" >Enviar Factura</button>
+	<button translate="BUTTON_SEND" id="registroFactura-button3" ng-hide="isConnected()" class="button button-balanced  button-block" ng-click="sendInvoice()" >Enviar Factura</button>
     <button translate="BUTTON_QUEUED" id="registroFactura-button3" ng-hide="isNoConnected()" class="button button-balanced  button-block" ng-click="saveLocalInvoice()">Colocar en cola</button>
   </ion-content>
 </ion-view>

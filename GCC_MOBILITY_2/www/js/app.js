@@ -5,74 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services','ngCordova','pascalprecht.translate','angular-loading-bar', 'ngAnimate'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes','app.i18', 'app.directives','app.services','ngCordova','pascalprecht.translate','angular-loading-bar', 'ngAnimate'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider,$translateProvider,cfpLoadingBarProvider){
   $ionicConfigProvider.tabs.position('bottom'); 
   cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
   cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner"> </div>';
- $translateProvider.translations('en', {
-    LOGIN: 'Login',
-    LABEL_PASSWORD: 'Password',
-    LABEL_USER: 'User',
-    LABEL_LENGUAGE: 'Select a language',
-    LABEL_SEND_ALL_INVOICE: 'Send All',
-    TITTLE_INVOICE_RECORD:'Invoice record',
-    LABEL_INVOICE :'N° Invoice',
-    LABEL_DATE :'Date',
-    BUTTON_SEND :'Send',
-    BUTTON_QUEUED :'Store Queued',
-    TITTLE_INVOICE_NOT_SEND:'Invoices list not sent',
-    MSG_ERROR_PASSWORD_INVALID: '* Password is invalid',
-    MSG_ERROR_PASSWORD_LENGTH: '* Password length is invalid',
-    MSG_ERROR_AUTENTIFICATION: '* User/password invalid',
-    MSG_ALERT_NOT_INVOICE: 'Does Not Have Invoices Stores',
-    MSG_ERROR_USER_INVALID: '* User is invalid',
-    MSG_ERROR_USER_LENGTH: '* User length is invalid',
-    MSG_CONFIRM_SEND_ALL_INVOICES: 'Do you want to send all invoices?',
-    LABEL_LENGUAGE_ENGLISH :'English',
-    LABEL_LENGUAGE_EPANISH :'Spanish',
-    SAVE_QUEUED : 'Was saved in queue',
-    NOT_SAVE_QUEUED: 'Failed to save in queue',
-    NOT_CONNECTION :'There is no internet connection',
-    LABEL_RIGHTS :'All rights reserved.',
-    LABEL_PHONE : 'Phone',
-    LABEL_EMAIL : 'Email',
-    TEXT_INFO:'* You can enter or scan the invoice number',
-    LABEL_TEMPORARY:'Temporary record'
-      });
-  $translateProvider.translations('es', {
-    LOGIN: 'Ingresar',
-    LABEL_PASSWORD: 'Contraseña',
-    LABEL_USER: 'Usuario',
-    LABEL_LENGUAGE: 'Seleccione un lenguaje',
-    LABEL_SEND_ALL_INVOICE: 'Enviar Todas',
-    TITTLE_INVOICE_RECORD:'Registro de factura',
-    LABEL_INVOICE :'N° Factura',
-    LABEL_DATE :'Fecha',
-    BUTTON_SEND :'Enviar',
-    BUTTON_QUEUED :'Almacenar en cola',
-    TITTLE_INVOICE_NOT_SEND:'Lista facturas no enviadas',
-    MSG_ERROR_PASSWORD_INVALID: '* Contraseña invalida',
-    MSG_ERROR_PASSWORD_LENGTH: '* El tamaño de es incorrecto',
-    MSG_ERROR_AUTENTIFICATION: '* Usuario/Contraseña son incorrectos',
-    MSG_ALERT_NOT_INVOICE: 'No posee facturas almacenadas',
-    MSG_ERROR_USER_INVALID: '* Usuario incorrecto',
-    MSG_ERROR_USER_LENGTH: '* El tamaño de es incorrecto',
-    MSG_CONFIRM_SEND_ALL_INVOICES: '¿Usted quiere enviar todas las facturas?',
-    LABEL_LENGUAGE_ENGLISH :'Ingles',
-    LABEL_LENGUAGE_EPANISH :'Español',
-    SAVE_QUEUED : 'Se guardo en cola',
-    NOT_SAVE_QUEUED: 'No se pudo guardar en cola',
-    NOT_CONNECTION :'No hay conexión de internet',
-    LABEL_RIGHTS :'Todos los derechos reservados.',
-    LABEL_PHONE : 'Teléfono',
-    LABEL_EMAIL : 'Email',
-    TEXT_INFO:'* Puede ingresar o escanear el número de factura',
-    LABEL_TEMPORARY:'Registro temporal'
-
-  });
-  $translateProvider.preferredLanguage('en');
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 
 })
