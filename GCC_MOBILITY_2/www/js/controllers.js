@@ -104,6 +104,10 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
     
     
     }
+
+      $scope.isConnected = function(){
+    return BlankFactory.validateConnection() ? false : true;
+  }
      
     $scope.viewInvoice = function(dato,date,flag){    
      
@@ -119,7 +123,6 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
                              if (confrm){
         cfpLoadingBar.start();
         cfpLoadingBar.inc();
-        //BlankFactory.deleteAllInvoice(keySession);
         var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
         var error=false;
         getAllInvoice.forEach( function(valor, indice, array) {
@@ -150,7 +153,7 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
           
            $scope.list_invoice= getAllInvoice;
           
-          window.location="#/page6";
+          window.location="#/side-menu21/page6";
           cfpLoadingBar.complete();
         }
         

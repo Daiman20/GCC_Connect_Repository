@@ -255,8 +255,7 @@ return $.ajax({
                 }
                 
             },
-            error: function (xhr, status) { 
-              alert("Paso5");
+            error: function (xhr, status) {  
                 return false;
             }
         });   

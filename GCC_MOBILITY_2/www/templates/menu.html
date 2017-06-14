@@ -14,14 +14,14 @@
     </ion-header-bar>
     <ion-content padding="false" class="side-menu-left has-header ">
       <ion-list id="menu-list1">
-        <ion-item class="item-icon-right balanced" id="menu-list-item1" ui-sref="menu.invoiceRecord" menu-close="">Escanear Factura
+        <ion-item class="item-icon-right balanced" id="menu-list-item1" ui-sref="menu.invoiceRecord" menu-close="" ><span translate="MENU_LABEL_SCAN_INVOICE" ></span>
           <i class="icon ion-ios-camera-outline"></i>
         </ion-item>
         <ion-item class="item-icon-right balanced" id="menu-list-item2"  ng-click="load()"
-    ng-controller="queuedInvoicesCtrl"  menu-close="" >Facturas en cola
+    ng-controller="queuedInvoicesCtrl"  menu-close="" ><span translate="MENU_LABEL_INVOICE_QUEUED"></span>
           <i class="icon ion-ios-list-outline"></i>
         </ion-item>
-        <ion-item class="item-icon-right balanced" id="menu-list-item3" ng-click="logout()" ng-controller="loginCtrl" menu-close="">Salir
+        <ion-item class="item-icon-right balanced" id="menu-list-item3" ng-click="logout()" ng-controller="loginCtrl" menu-close="" ><span translate="MENU_LABEL_EXIT"></span>
           <i class="icon ion-android-exit"></i>
         </ion-item>
       </ion-list>

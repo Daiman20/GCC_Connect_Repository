@@ -7,12 +7,19 @@
     <form id="login-form4" class="list"> 
      <div class="alignClass"> 
 
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" translate="LABEL_LENGUAGE">Lenguage
-  <span class="caret"></span></button>
+
+
+
+<!-- Split button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-success" translate="LABEL_LENGUAGE">Action</button>
+  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
   <ul class="dropdown-menu dropdown-menu-right">
-    <li><a ng-click="changeLanguage('en')" ><img   class="flag flag-us" /></a></li>
-    <li><a ng-click="changeLanguage('es')" ><img  class="flag flag-es" /></a></li>
+    <li><a ng-click="changeLanguage('en')" ><div class="btn-group"><img   class="flag flag-us" /><span translate="LABEL_LENGUAGE_ENGLISH"></span> </div></a></li>
+    <li><a ng-click="changeLanguage('es')"><div class="btn-group"><img   class="flag flag-es" /><span translate="LABEL_LENGUAGE_EPANISH"></span> </div>  </a> </li>
   </ul>
 </div>
      </div>  
