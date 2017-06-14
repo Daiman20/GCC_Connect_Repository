@@ -1,14 +1,14 @@
   angular.module('app.controllers', ['ionic','ngCordova','pascalprecht.translate','cfp.loadingBar'])
   
-.controller('invoiceRecordCtrl', ['$scope','$cordovaBarcodeScanner','services','cfpLoadingBar','BlankFactory','$cordovaToast','$translate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$cordovaToast,$translate) {
+.controller('invoiceRecordCtrl', ['$scope','$state','$ionicHistory','$cordovaBarcodeScanner','services','cfpLoadingBar','BlankFactory','$cordovaToast','$translate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+function ($scope,$state,$ionicHistory, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$cordovaToast,$translate) {
     // Load Date today 
   $scope.input_date = new Date();
 /*
   Method that performs reading the bar code.
 */
   $scope.readCode = function(){
-    window.localStorage.removeItem('Invoice');
+   // window.localStorage.removeItem('Invoice');
     $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
@@ -40,7 +40,8 @@ function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$co
    $scope.sendInvoice = function(){   
         cfpLoadingBar.start();
         cfpLoadingBar.inc(); 
-           services.sendInvoice($scope.input_invoice,$scope.input_date,$scope.flagTemporal).then(function(data){  
+           if($scope.input_invoice){
+                services.sendInvoice($scope.input_invoice,$scope.input_date,$scope.flagTemporal).then(function(data){  
                              if(data){
                                       $scope.input_invoice='';
                                         $scope.input_date = new Date();
@@ -69,6 +70,13 @@ function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$co
                                cfpLoadingBar.complete();
                              }
                       );
+           }else{
+                $translate('NOT_EMPTY_INVOICE').then(function (translatedValue) { 
+                                    BlankFactory.showToast(translatedValue, 'long', 'center');
+                                 });
+                               cfpLoadingBar.complete();
+           }
+           
    
      
    }
@@ -83,19 +91,24 @@ function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$co
 
 }])
    
-.controller('queuedInvoicesCtrl', ['$scope', '$stateParams','services','BlankFactory','$translate','cfpLoadingBar','$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('queuedInvoicesCtrl', ['$scope','$state','$ionicHistory', '$stateParams','services','BlankFactory','$translate','cfpLoadingBar','$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$location) {
-   var keySession = 'Invoice'; 
-   console.log("Entro al controler");
-   var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
-   $scope.list_invoice= getAllInvoice;
+function ($scope,$state,$ionicHistory, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$location) { 
+   var LOCAL_USER_KEY='userLocal';
+   var localInvoices='Invoices'+window.localStorage.getItem(LOCAL_USER_KEY ); 
+ 
+   $scope.list_invoice= JSON.parse(window.localStorage.getItem(localInvoices));
+
    $scope.load= function(){
-    var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
+    var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices)); 
     if(getAllInvoice != null){
-      $scope.list_invoice= getAllInvoice;
-      window.location="#/side-menu21/page7";
+      
+      $ionicHistory.nextViewOptions({
+         disableBack: true
+      }); 
+      $ionicHistory.clearCache().then(function(){ $state.go('menu.queuedInvoices');});
+      $scope.list_invoice= window.localStorage.getItem(localInvoices);
     }else{
        $translate('MSG_ALERT_NOT_INVOICE').then(function (translatedValue) { 
              BlankFactory.showToast(translatedValue, 'long', 'center');
@@ -118,12 +131,14 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
     }
 
     $scope.sendAll = function(){
+      var LOCAL_USER_KEY='userLocal';
+      var localInvoices='Invoices'+window.localStorage.getItem(LOCAL_USER_KEY ); 
       var sendConfirm = $translate('MSG_CONFIRM_SEND_ALL_INVOICES').then(function (translatedValue) { 
                              var confrm = confirm(translatedValue);
                              if (confrm){
         cfpLoadingBar.start();
         cfpLoadingBar.inc();
-        var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
+        var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices));
         var error=false;
         getAllInvoice.forEach( function(valor, indice, array) {
                 
@@ -131,7 +146,7 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
                 
                  services.sendInvoice(valor.Invoice,dateTemp,valor.Flag).then(function(data){ 
                              
-                             BlankFactory.deleteInvoice(keySession,valor.Invoice);
+                             BlankFactory.deleteInvoice(localInvoices,valor.Invoice);
                              
                        },function(err){
                                
@@ -149,11 +164,23 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
            $translate('SAVED').then(function (translatedValue) { 
                                            BlankFactory.showToast(translatedValue, 'long', 'center');
                                          });
-           var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
-          
-           $scope.list_invoice= getAllInvoice;
-          
-          window.location="#/side-menu21/page6";
+           var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices));
+
+            if(getAllInvoice.length > 0){
+               $scope.list_invoice= getAllInvoice;
+               $ionicHistory.nextViewOptions({
+                 disableBack: true
+               }); 
+                $ionicHistory.clearCache().then(function(){ $state.go('menu.queuedInvoices');});
+            }else{
+              window.localStorage.removeItem(localInvoices);
+               $ionicHistory.nextViewOptions({
+                 disableBack: true
+               }); 
+                $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
+            }
+           
+         
           cfpLoadingBar.complete();
         }
         
@@ -166,7 +193,7 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
 
 }])
 
-      .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+      .controller('menuCtrl', ['$scope','$state', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
@@ -175,8 +202,8 @@ function ($scope, $stateParams) {
 }])
 
 
-.controller('loginCtrl', ['$scope', '$stateParams','$rootScope','$translate','cfpLoadingBar', 'services','BlankFactory',
-function ($scope, $stateParams,$rootScope,$translate,cfpLoadingBar,services,BlankFactory) {
+.controller('loginCtrl', ['$scope','$state','$ionicHistory', '$stateParams','$rootScope','$translate','cfpLoadingBar', 'services','BlankFactory',
+function ($scope,$state,$ionicHistory, $stateParams,$rootScope,$translate,cfpLoadingBar,services,BlankFactory) {
   $scope.changeLanguage = function (key) { 
     $translate.use(key);
   };
@@ -192,8 +219,10 @@ function ($scope, $stateParams,$rootScope,$translate,cfpLoadingBar,services,Blan
   $scope.logout=function(){
        services.destroyUserCredentials();
        $scope.password='';
-       window.location="#/page5";
-                               
+       $ionicHistory.nextViewOptions({
+              disableBack: true
+           }); 
+       $ionicHistory.clearCache().then(function(){ $state.go('login');});                     
                        
   };
 
@@ -215,8 +244,12 @@ function ($scope, $stateParams,$rootScope,$translate,cfpLoadingBar,services,Blan
                              if(data){
                                       var currentLanguage=$translate.use();
                                       window.localStorage.setItem($scope.user,currentLanguage);
-                                      cfpLoadingBar.complete();
-                                      window.location="#/side-menu21/page6";
+                                      cfpLoadingBar.complete(); 
+                                      $ionicHistory.nextViewOptions({
+                                        disableBack: true
+                                      });
+                                      $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
+                                      
                               }else{
                                       cfpLoadingBar.complete();
                                       $scope.valid = {}
@@ -232,8 +265,11 @@ function ($scope, $stateParams,$rootScope,$translate,cfpLoadingBar,services,Blan
                    var valid=services.validLocalCredentials($scope.user,$scope.password);
                    
                    if(valid){
-                                 cfpLoadingBar.complete();
-                                 window.location="#/side-menu21/page6";
+                                 cfpLoadingBar.complete(); 
+                                 $ionicHistory.nextViewOptions({
+                                  disableBack: true
+                                 });
+                              $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
                    }else{
                                   $translate('NOT_CONNECTION').then(function (translatedValue) { 
                                   BlankFactory.showToast(translatedValue, 'long', 'center');

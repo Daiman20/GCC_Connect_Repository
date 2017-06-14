@@ -23,22 +23,24 @@ angular.module('app.services', ['ionic','ngCordova'])
 	    };
 
 	    var saveInvoices = function(num_invoice,date,flag){ 
+        var LOCAL_USER_KEY='userLocal';
+        var localInvoices='Invoices'+window.localStorage.getItem(LOCAL_USER_KEY );
 	    if('localStorage' in window && window['localStorage'] !== null) {
               //alert('Genial, tenemos un navegador decente que soporta LocalStorage');
-	    	if (window.localStorage.getItem( 'Invoice' ) != null){
-	    		var arraysInvoices = JSON.parse(window.localStorage.getItem( 'Invoice' ));
+	    	if (window.localStorage.getItem(localInvoices) != null){
+	    		var arraysInvoices = JSON.parse(window.localStorage.getItem(localInvoices));
 	    	    if (num_invoice != null && date != null){
 	        	  var arrInvoice = { 'Invoice':num_invoice, 'Date':date,'Flag':flag};
 	        	   arraysInvoices.push(arrInvoice);
-                   window.localStorage.removeItem('Invoice');
-	        	   window.localStorage.setItem( 'Invoice',JSON.stringify(arraysInvoices));
+                   window.localStorage.removeItem(localInvoices);
+	        	   window.localStorage.setItem(localInvoices,JSON.stringify(arraysInvoices));
 	            }else{
 	        	  return false;
 	            }
 	    	}else{
 	    		if (num_invoice != null && date != null){
 	        	  var arr = [{'Invoice':num_invoice, 'Date':date,'Flag':flag}];
-	        	  window.localStorage.setItem( 'Invoice',JSON.stringify(arr));
+	        	  window.localStorage.setItem(localInvoices,JSON.stringify(arr));
 	            }else{
 	        	  return false;
 	            }
@@ -259,26 +261,6 @@ return $.ajax({
                 return false;
             }
         });   
-
-/*return $.ajax({
-          headers: { "Accept": "application/json"},
-            url: "http://172.25.16.128:8000/api/users/authenticate",
-            type: "POST",
-            crossDomain: true,
-            data: DataToSend,
-            headers:{},
-            dataType: "json",
-            accept: "application/json",
-            beforeSend: function(xhr){
-                xhr.withCredentials = true;
-          },
-            success: function (response) {
-                return true;
-            },
-            error: function (xhr, status) { 
-                return false;
-            }
-        });*/
 };
 return {
     authenticate : authenticate,

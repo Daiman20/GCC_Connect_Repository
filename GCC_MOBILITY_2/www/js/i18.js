@@ -36,7 +36,8 @@ angular.module('app.i18',[])
     NOT_SAVED:'Invoice not saved',
     MENU_LABEL_SCAN_INVOICE:'Scan Invoice',
     MENU_LABEL_INVOICE_QUEUED:'Queued invoices',
-    MENU_LABEL_EXIT:'Exit'
+    MENU_LABEL_EXIT:'Exit',
+    NOT_EMPTY_INVOICE:'You must enter the invoice number'
       });
   $translateProvider.translations('es', {
     LOGIN: 'Ingresar',
@@ -72,7 +73,8 @@ angular.module('app.i18',[])
     NOT_SAVED:'No se guardó la factura',
     MENU_LABEL_SCAN_INVOICE:'Escanear Factura',
     MENU_LABEL_INVOICE_QUEUED:'Facturas en cola',
-    MENU_LABEL_EXIT:'Salir'
+    MENU_LABEL_EXIT:'Salir',
+    NOT_EMPTY_INVOICE:'Debe ingresar el número de factura'
 
   });
   var LOCAL_LENGUAGE='lenguageLocal';
