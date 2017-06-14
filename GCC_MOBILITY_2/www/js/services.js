@@ -221,19 +221,20 @@ function addZero(i) {
 }
 
 
-var sendInvoice=function(num_invoice,date,flag){ 
+var sendInvoice=function(num_invoice,date,flag){  
   var dateFormat=date.getFullYear()+""+(addZero(date.getMonth()+1))+""+date.getDate()+"";
   var h = addZero(date.getHours());
   var m = addZero(date.getMinutes());
   var s = addZero(date.getSeconds());
   var hour=h+""+m+""+s;
+  authToken=window.localStorage.getItem(LOCAL_USER_KEY);
     var DataToSend = {
                     idInvoice:num_invoice,
                     date: dateFormat,
                     pHour : hour,
                     idUser:authToken,
                     flag:flag
-   }; 
+   };  
 return $.ajax({
           headers: { "Accept": "application/json"},           
             url: "http://216.177.206.4:8000/api/invoices/invoiceDelivery",
@@ -246,9 +247,8 @@ return $.ajax({
             beforeSend: function(xhr){
                 xhr.withCredentials = true;
           },
-            success: function (response) {
-                storeUserCredentials(user,password);
-                if(response.result){
+            success: function (response) {  
+                if(response.result=='0'){
                   return true;
                 }else{
                   return false;
@@ -256,6 +256,7 @@ return $.ajax({
                 
             },
             error: function (xhr, status) { 
+              alert("Paso5");
                 return false;
             }
         });   

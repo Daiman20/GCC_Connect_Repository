@@ -12,7 +12,7 @@ angular.module('app.i18',[])
     LABEL_INVOICE :'Invoice key',
     LABEL_DATE :'Delivery Date',
     BUTTON_SEND :'Send',
-    BUTTON_QUEUED :'Store Queued',
+    BUTTON_QUEUED :'Save For Later',
     TITTLE_INVOICE_NOT_SEND:'Invoice Notification Queue',
     MSG_ERROR_PASSWORD_INVALID: '* Password is invalid',
     MSG_ERROR_PASSWORD_LENGTH: '* Password length is invalid',
@@ -33,7 +33,10 @@ angular.module('app.i18',[])
     LABEL_TEMPORARY:'Parcial delivery',
     SAVE_TEMPORAL:'Your invoice was temporarily saved',
     SAVED:'Invoice saved correctly',
-    NOT_SAVED:'Invoice not saved'
+    NOT_SAVED:'Invoice not saved',
+    MENU_LABEL_SCAN_INVOICE:'Scan Invoice',
+    MENU_LABEL_INVOICE_QUEUED:'Queued invoices',
+    MENU_LABEL_EXIT:'Exit'
       });
   $translateProvider.translations('es', {
     LOGIN: 'Ingresar',
@@ -45,7 +48,7 @@ angular.module('app.i18',[])
     LABEL_INVOICE :'Clave de factura',
     LABEL_DATE :'Fecha de entrega',
     BUTTON_SEND :'Enviar',
-    BUTTON_QUEUED :'Almacenar en cola',
+    BUTTON_QUEUED :'Guardarla para mas tarde',
     TITTLE_INVOICE_NOT_SEND:'Lista facturas no enviadas',
     MSG_ERROR_PASSWORD_INVALID: '* Contraseña invalida',
     MSG_ERROR_PASSWORD_LENGTH: '* El tamaño de es incorrecto',
@@ -66,7 +69,10 @@ angular.module('app.i18',[])
     LABEL_TEMPORARY:'Entrega parcial',
     SAVE_TEMPORAL:'Se guardó la factura temporalmente',
     SAVED:'Factura guardada correctamente',
-    NOT_SAVED:'No se guardó la factura'
+    NOT_SAVED:'No se guardó la factura',
+    MENU_LABEL_SCAN_INVOICE:'Escanear Factura',
+    MENU_LABEL_INVOICE_QUEUED:'Facturas en cola',
+    MENU_LABEL_EXIT:'Salir'
 
   });
   var LOCAL_LENGUAGE='lenguageLocal';

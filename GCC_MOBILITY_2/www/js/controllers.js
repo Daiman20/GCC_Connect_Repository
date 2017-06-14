@@ -1,6 +1,6 @@
   angular.module('app.controllers', ['ionic','ngCordova','pascalprecht.translate','cfp.loadingBar'])
   
-.controller('invoiceRecordCtrl', ['$scope', '$cordovaBarcodeScanner','services','cfpLoadingBar','BlankFactory','$cordovaToast','$translate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('invoiceRecordCtrl', ['$scope','$cordovaBarcodeScanner','services','cfpLoadingBar','BlankFactory','$cordovaToast','$translate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$cordovaToast,$translate) {
     // Load Date today 
   $scope.input_date = new Date();
@@ -39,10 +39,10 @@ function ($scope, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$co
 
    $scope.sendInvoice = function(){   
         cfpLoadingBar.start();
-        cfpLoadingBar.inc();    
-           services.sendInvoice($scope.input_invoice,$scope.input_date,$scope.flagTemporal).then(function(data){ 
+        cfpLoadingBar.inc(); 
+           services.sendInvoice($scope.input_invoice,$scope.input_date,$scope.flagTemporal).then(function(data){  
                              if(data){
-                                      $scope.input_invoice=null;
+                                      $scope.input_invoice='';
                                         $scope.input_date = new Date();
                                         if($scope.flagTemporal=='S'){
                                                $translate('SAVE_TEMPORAL').then(function (translatedValue) { 
@@ -95,7 +95,7 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
     var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
     if(getAllInvoice != null){
       $scope.list_invoice= getAllInvoice;
-      window.location.href="#/side-menu21/page7";
+      window.location="#/side-menu21/page7";
     }else{
        $translate('MSG_ALERT_NOT_INVOICE').then(function (translatedValue) { 
              BlankFactory.showToast(translatedValue, 'long', 'center');
@@ -141,6 +141,7 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
            $translate('NOT_SAVED').then(function (translatedValue) { 
                                            BlankFactory.showToast(translatedValue, 'long', 'center');
                                          });
+           cfpLoadingBar.complete();
         } else{
            $translate('SAVED').then(function (translatedValue) { 
                                            BlankFactory.showToast(translatedValue, 'long', 'center');
@@ -148,9 +149,11 @@ function ($scope, $stateParams,services,BlankFactory,$translate,cfpLoadingBar,$l
            var getAllInvoice = JSON.parse(window.localStorage.getItem(keySession));
           
            $scope.list_invoice= getAllInvoice;
-       
+          
+          window.location="#/page6";
+          cfpLoadingBar.complete();
         }
-        cfpLoadingBar.complete();
+        
       }
                          });
       
