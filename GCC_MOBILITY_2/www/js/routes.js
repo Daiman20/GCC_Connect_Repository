@@ -1,6 +1,6 @@
-angular.module('app.routes', [])
+angular.module('app.routes', ['app.constants'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,USER_ROLES) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -28,7 +28,10 @@ angular.module('app.routes', [])
       'side-menu21': {
         templateUrl: 'templates/invoiceRecord.html',
         controller: 'invoiceRecordCtrl'
-      }
+      }      
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.admin]
     }
   })
 
@@ -39,6 +42,9 @@ angular.module('app.routes', [])
         templateUrl: 'templates/queuedInvoices.html',
         controller: 'queuedInvoicesCtrl'
       }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.mant]
     }
   })
  .state('menu.home', {

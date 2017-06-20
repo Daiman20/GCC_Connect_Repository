@@ -4,6 +4,7 @@
 function ($scope,$state,$ionicHistory, $cordovaBarcodeScanner,services,cfpLoadingBar,BlankFactory,$cordovaToast,$translate) {
     // Load Date today 
   $scope.input_date = new Date();
+
 /*
   Method that performs reading the bar code.
 */
@@ -102,8 +103,7 @@ function ($scope,$state,$ionicHistory, $stateParams,services,BlankFactory,$trans
 
    $scope.load= function(){
     var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices)); 
-    if(getAllInvoice != null){
-      
+    if(getAllInvoice != null){ 
       $ionicHistory.nextViewOptions({
          disableBack: true
       }); 
@@ -161,24 +161,15 @@ function ($scope,$state,$ionicHistory, $stateParams,services,BlankFactory,$trans
                                          });
            cfpLoadingBar.complete();
         } else{
+          window.localStorage.removeItem(localInvoices);
            $translate('SAVED').then(function (translatedValue) { 
                                            BlankFactory.showToast(translatedValue, 'long', 'center');
-                                         });
-           var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices));
-
-            if(getAllInvoice.length > 0){
-               $scope.list_invoice= getAllInvoice;
-               $ionicHistory.nextViewOptions({
-                 disableBack: true
-               }); 
-                $ionicHistory.clearCache().then(function(){ $state.go('menu.queuedInvoices');});
-            }else{
-              window.localStorage.removeItem(localInvoices);
-               $ionicHistory.nextViewOptions({
-                 disableBack: true
-               }); 
-                $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
-            }
+                                         }); 
+             $ionicHistory.nextViewOptions({
+                disableBack: true
+              }); 
+            $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
+            //}
            
          
           cfpLoadingBar.complete();

@@ -37,7 +37,8 @@ angular.module('app.i18',[])
     MENU_LABEL_SCAN_INVOICE:'Scan Invoice',
     MENU_LABEL_INVOICE_QUEUED:'Queued invoices',
     MENU_LABEL_EXIT:'Exit',
-    NOT_EMPTY_INVOICE:'You must enter the invoice number'
+    NOT_EMPTY_INVOICE:'You must enter the invoice number',
+    NOT_ACCESS_URL:'You do not have the necessary permissions to perform this action'
       });
   $translateProvider.translations('es', {
     LOGIN: 'Ingresar',
@@ -74,7 +75,8 @@ angular.module('app.i18',[])
     MENU_LABEL_SCAN_INVOICE:'Escanear Factura',
     MENU_LABEL_INVOICE_QUEUED:'Facturas en cola',
     MENU_LABEL_EXIT:'Salir',
-    NOT_EMPTY_INVOICE:'Debe ingresar el número de factura'
+    NOT_EMPTY_INVOICE:'Debe ingresar el número de factura',
+    NOT_ACCESS_URL:'No posee los permisos necesarios para realizar esta acción'
 
   });
   var LOCAL_LENGUAGE='lenguageLocal';

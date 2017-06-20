@@ -1,7 +1,7 @@
-angular.module('app.services', ['ionic','ngCordova'])
+angular.module('app.services', ['ionic','ngCordova','app.constants'])
 
 .factory('BlankFactory', ['$cordovaNetwork','$cordovaBarcodeScanner','$cordovaToast',
-	function($cordovaNetwork,$cordovaBarcodeScanner,$cordovaToast){
+	function($cordovaNetwork,$cordovaBarcodeScanner,$cordovaToast, $rootScope){
 	
 		var validateConnection = function(){
 		    var isOnline = $cordovaNetwork.isOnline();
@@ -49,35 +49,7 @@ angular.module('app.services', ['ionic','ngCordova'])
 	    }
 	    	 
 	    };
-
-      var deleteInvoiceAdonay = function(num_invoice,date,flag){
-      if('localStorage' in window && window['localStorage'] !== null) {
-        if (window.localStorage.getItem( 'Invoice' ) != null){
-          var arraysInvoices = JSON.parse(window.localStorage.getItem( 'Invoice' ));
-            if (num_invoice != null && date != null){
-              var arrInvoice = { 'Invoice':num_invoice, 'Date':date,'Flag':flag};
-               arraysInvoices.remove(arrInvoice);
-               window.localStorage.removeItem('Invoice');
-               window.localStorage.setItem( 'Invoice',JSON.stringify(arraysInvoices));
-              }else{
-              return false;
-              }
-        }else{
-          if (num_invoice != null && date != null){
-              var arr = [{'Invoice':num_invoice, 'Date':date}];
-              window.localStorage.setItem( 'Invoice',JSON.stringify(arr));
-              }else{
-              return false;
-              }
-        }
-        return true;
-      }
-         
-      };
-
-
-
-
+      
 	    var showToast = function(message, duration, location) {
           $cordovaToast
           .show(message, duration, location)
@@ -131,18 +103,21 @@ angular.module('app.services', ['ionic','ngCordova'])
     		showToast          : showToast,
     		encryData          : encryData,
         deleteAllInvoice   : deleteAllInvoice,
-        deleteInvoice      : deleteInvoice,
-        deleteInvoiceAdonay : deleteInvoiceAdonay
+        deleteInvoice      : deleteInvoice 
     	}
 	        
 
 }])
 
-.service('services', ['$q','$http',function($q, $http){
+
+
+.service('services', ['$q','$http',function($q, $http,USER_ROLES){
 var LOCAL_USER_KEY='userLocal';
 var LOCAL_PASSWORD_KEY='passwordLocal';
+var LOCAL_ROLE_USER='role_user';
 var isAuthenticated=false;
 var authToken;  
+var role='';
 
 function loadUserCredentials(){
   var user = window.localStorage.getItem(LOCAL_USER_KEY);
@@ -151,15 +126,17 @@ function loadUserCredentials(){
   }
 }
 
-function storeUserCredentials(user,password){
+function storeUserCredentials(user,password,arrayRole){
   window.localStorage.setItem(LOCAL_USER_KEY, user);
   window.localStorage.setItem(LOCAL_PASSWORD_KEY, password);
-  useCredentials(user);
+  useCredentials(user,arrayRole);
 }
 
-function useCredentials(user){
+function useCredentials(user,arrayRole){
   isAuthenticated =true;
   authToken = user;
+  window.localStorage.setItem(LOCAL_ROLE_USER, arrayRole);      
+  $http.defaults.headers.common['X-Auth-Token'] = user;
 }
 
 function destroyUserCredentials(){
@@ -180,6 +157,10 @@ function validLocalCredentials(user,password){
     }
 }
 
+var isAuthorized = function(authorizedRoles) {
+    role=  window.localStorage.getItem(LOCAL_ROLE_USER); 
+    return (isAuthenticated && role.indexOf(authorizedRoles) !== -1);
+  };
 
 
 
@@ -203,8 +184,9 @@ return $.ajax({
           },
             success: function (response) {
               var valid=response.CADENA;
-              if(valid.substring(0, 1)=='Y'){
-                 storeUserCredentials(user,pas);
+              var arrayData=valid.split('!');
+              if(arrayData[0]=='Y'){
+                 storeUserCredentials(user,pas,arrayData);
                  return true;
               }else{
                  return false;
@@ -268,7 +250,8 @@ return {
     isAuthenticated : function() { return isAuthenticated; },
     destroyUserCredentials : destroyUserCredentials,
     validLocalCredentials : validLocalCredentials,
-    getUser : function(){return authToken;}
+    getUser : function(){return authToken;},
+    isAuthorized: isAuthorized
   }
 }]);
 

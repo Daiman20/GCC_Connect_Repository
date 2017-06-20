@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes','app.i18', 'app.directives','app.services','ngCordova','pascalprecht.translate','angular-loading-bar', 'ngAnimate'])
+angular.module('app', ['ionic','app.controllers', 'app.routes','app.i18', 'app.constants','app.directives','app.services','ngCordova','pascalprecht.translate','angular-loading-bar', 'ngAnimate'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider,$translateProvider,cfpLoadingBarProvider){
   $ionicConfigProvider.tabs.position('bottom'); 
@@ -15,10 +15,29 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes','app.i18', 'app.
 
 })
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+.run(function($ionicPlatform,$httpBackend,$rootScope, $state, services,BlankFactory,$cordovaToast,$translate) {
+  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+ 
+    if ('data' in next && 'authorizedRoles' in next.data) {
+      var authorizedRoles = next.data.authorizedRoles;
+      if (!services.isAuthorized(authorizedRoles)) {
+        event.preventDefault();
+        $state.go($state.current, {}, {reload: true});
+        $translate('NOT_ACCESS_URL').then(function (translatedValue) { 
+             BlankFactory.showToast(translatedValue, 'long', 'center');
+        });
+      }
+    }
+ 
+    if (!services.isAuthenticated()) {
+      if (next.name !== 'login') {
+        event.preventDefault();
+        $state.go('login');
+      }
+    }
+  }); 
+  $ionicPlatform.ready(function() { 
+     
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
