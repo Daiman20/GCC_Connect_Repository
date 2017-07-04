@@ -1,7 +1,7 @@
 {
-  "name": "gcc_mobility_2",
+  "name": "GCC_CONNECT",
   "version": "1.1.1",
-  "description": "GCC_MOBILITY_2: An Ionic project",
+  "description": "GCC_CONNECT: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",

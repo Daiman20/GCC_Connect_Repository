@@ -16,24 +16,17 @@
  	color:#00923f;
  }
  .bar .title{
-   background-image: url("img/header.png");
+    background-image: url("img/header.png");
+    background-size: 50% 100%;
     background-repeat: no-repeat;
     background-position: center; 
  }
- .footer2 {
-    display: block;
-    position: absolute;
+ .footer2 {  
     top: 0;
     right: 0;
     left: 0;
-    z-index: 0;
-    overflow: hidden;
-    margin: 0 5px;
-    min-width: 30px;
-    height: 100%;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-align: center; 
+    color: #26A05F;
     font-size: 15px;
     font-weight: 500;
      }
@@ -48,4 +41,44 @@
 .bar-footer2 {
   bottom: 0; 
   height: 44px; }
+
+  .padding-img {
+    padding: 0px !important;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0px 1px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.bar2 {
+    -webkit-transform: translate3d(0, 0, 0);     
+    right: 0;
+    left: 0;  
+    background-size: 0;
+}
+
+.bar2.bar-balanced2 {
+    border-color: #28a54c;
+    background-color: #33cd5f;
+    background-image: linear-gradient(0deg, #28a54c, #28a54c 50%, transparent 50%);
+    color: #fff;
+}
 

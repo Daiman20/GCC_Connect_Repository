@@ -232,7 +232,9 @@ function ($scope,$state,$ionicHistory, $stateParams,$rootScope,$translate,cfpLoa
              
                if(BlankFactory.validateConnection()){
                          services.authenticate($scope.user,$scope.password).then(function(data){ 
-                             if(data){
+                            
+                             if(services.isAuthenticated()){
+                               
                                       var currentLanguage=$translate.use();
                                       window.localStorage.setItem($scope.user,currentLanguage);
                                       cfpLoadingBar.complete(); 
@@ -242,14 +244,15 @@ function ($scope,$state,$ionicHistory, $stateParams,$rootScope,$translate,cfpLoa
                                       $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
                                       
                               }else{
+                                 
                                       cfpLoadingBar.complete();
                                       $scope.valid = {}
                                       $scope.valid.show = true; 
                               }
                        },function(err){
                                 cfpLoadingBar.complete();
-                               $scope.valid = {}
-                               $scope.valid.show = true; 
+                               $scope.error_server_connection = {}
+                               $scope.error_server_connection.show = true; 
                              }
                       );
                 }else{

@@ -182,13 +182,13 @@ return $.ajax({
             beforeSend: function(xhr){
                 xhr.withCredentials = true;
           },
-            success: function (response) {
+            success: function (response) { 
               var valid=response.CADENA;
-              var arrayData=valid.split('!');
-              if(arrayData[0]=='Y'){
+              var arrayData=valid.split('!'); 
+              if(arrayData[0]==='Y'){ 
                  storeUserCredentials(user,pas,arrayData);
                  return true;
-              }else{
+              }else{ 
                  return false;
               }                
             },
