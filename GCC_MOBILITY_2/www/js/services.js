@@ -206,7 +206,7 @@ function addZero(i) {
 
 
 var sendInvoice=function(num_invoice,date,flag){  
-  var dateFormat=date.getFullYear()+""+(addZero(date.getMonth()+1))+""+date.getDate()+"";
+  var dateFormat=date.getFullYear()+""+(addZero(date.getMonth()+1))+""+addZero(date.getDate())+"";
   var h = addZero(date.getHours());
   var m = addZero(date.getMinutes());
   var s = addZero(date.getSeconds());
@@ -232,7 +232,7 @@ return $.ajax({
                 xhr.withCredentials = true;
           },
             success: function (response) {  
-                if(response.result=='0'){
+                if(response.result==='0'){
                   return true;
                 }else{
                   return false;

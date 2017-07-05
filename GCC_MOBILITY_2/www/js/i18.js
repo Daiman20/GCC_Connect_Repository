@@ -15,7 +15,7 @@ angular.module('app.i18',[])
     BUTTON_QUEUED :'Save For Later',
     TITTLE_INVOICE_NOT_SEND:'Invoice Notification Queue',
     MSG_ERROR_PASSWORD_INVALID: '* Password is invalid',
-    MSG_ERROR_PASSWORD_LENGTH: '* Password length is invalid',
+    MSG_ERROR_PASSWORD_LENGTH: '* Size can not be less than 1 and greater than 10',
     MSG_ERROR_AUTENTIFICATION: '*Invalid user name or password',
     MSG_ALERT_NOT_INVOICE: 'Does Not Have Invoices Stores',
     MSG_ERROR_USER_INVALID: '* User is invalid',
@@ -39,7 +39,10 @@ angular.module('app.i18',[])
     MENU_LABEL_EXIT:'Exit',
     NOT_EMPTY_INVOICE:'You must enter the invoice number',
     NOT_ACCESS_URL:'You do not have the necessary permissions to perform this action',
-    ERROR_SERVER:'Connection error with server'
+    ERROR_SERVER:'Connection error with server',
+    ERROR_SEND_INVOICE:'Error sending invoice, do you want to save it for later?',
+    ERROR_CODE_INVOICE:'Invoice code not valid',
+    ERROR_CONNECTION_NOT_SEND:'Communication error, invoice not sent'
       });
   $translateProvider.translations('es', {
     LOGIN: 'Ingresar',
@@ -54,7 +57,7 @@ angular.module('app.i18',[])
     BUTTON_QUEUED :'Guardarla para mas tarde',
     TITTLE_INVOICE_NOT_SEND:'Lista facturas no enviadas',
     MSG_ERROR_PASSWORD_INVALID: '* Contraseña invalida',
-    MSG_ERROR_PASSWORD_LENGTH: '* El tamaño de es incorrecto',
+    MSG_ERROR_PASSWORD_LENGTH: '* El tamaño no puede menor a 1 y mayor a 10',
     MSG_ERROR_AUTENTIFICATION: '*Usuario o contraseña invalido',
     MSG_ALERT_NOT_INVOICE: 'No posee facturas almacenadas',
     MSG_ERROR_USER_INVALID: '* Usuario incorrecto',
@@ -78,7 +81,10 @@ angular.module('app.i18',[])
     MENU_LABEL_EXIT:'Salir',
     NOT_EMPTY_INVOICE:'Debe ingresar el número de factura',
     NOT_ACCESS_URL:'No posee los permisos necesarios para realizar esta acción',
-    ERROR_SERVER:'Error de conexión con el servidor'
+    ERROR_SERVER:'Error de conexión con el servidor',
+    ERROR_SEND_INVOICE:'Error al enviar la factura, desea guardarla para mas tarde?',
+    ERROR_CODE_INVOICE:'Código de factura no valido',
+    ERROR_CONNECTION_NOT_SEND:'Error de comunicación, factura no enviada'
   });
   var LOCAL_LENGUAGE='lenguageLocal';
   var lenguageLocal= window.localStorage.getItem(LOCAL_LENGUAGE);

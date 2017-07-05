@@ -43,12 +43,13 @@
       <ion-list id="login-list1">
         <label class="item item-input ic-selected" id="login-input2">
           <span translate="LABEL_PASSWORD" class="input-label">Password</span>
-          <input type="password" placeholder="" id="password" name="password" ng-model="password" ng-minlength="1"  required>
+          <input type="password" placeholder="" id="password" name="password" ng-model="password" ng-minlength="1" ng-maxlength="10" required>
         </label>
         <div class="padding">
         <p class="error-label" ng-show="loginForm.password.$error.required"></p>
         <p class="error-label"  ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" translate="MSG_ERROR_PASSWORD_INVALID">* password is invalid</p>
         <p class="error-label" ng-show="loginForm.password.$error.minlength" translate="MSG_ERROR_PASSWORD_LENGTH">* length</p>
+        <p class="error-label" ng-show="loginForm.password.$error.maxlength" translate="MSG_ERROR_PASSWORD_LENGTH">* length</p>
         <p class="error-label" ng-show="valid.show" translate="MSG_ERROR_AUTENTIFICATION">* user/password invalid</p>
      <p class="error-label" ng-show="error_server_connection.show" translate="ERROR_SERVER">* Connection error</p> 
       </div>

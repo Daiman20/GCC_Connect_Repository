@@ -35,7 +35,7 @@ angular.module('app', ['ionic','app.controllers', 'app.routes','app.i18', 'app.c
         $state.go('login');
       }
     }
-  }); 
+  });
   $ionicPlatform.ready(function() { 
      
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

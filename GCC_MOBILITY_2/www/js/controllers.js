@@ -9,20 +9,37 @@ function ($scope,$state,$ionicHistory, $cordovaBarcodeScanner,services,cfpLoadin
   Method that performs reading the bar code.
 */
   $scope.readCode = function(){
-   // window.localStorage.removeItem('Invoice');
     $cordovaBarcodeScanner
         .scan()
-        .then(function(barcodeData) {
-           $scope.input_invoice= barcodeData.text;
+        .then(function(barcodeData) { 
+           var sizeCode=barcodeData.text.length;
+           if(sizeCode != 34 && sizeCode != 50){
+               $translate('ERROR_CODE_INVOICE').then(function (translatedValue) { 
+                         BlankFactory.showToast(translatedValue, 'long', 'center');
+                });
+           }else{ 
+              $scope.input_invoice= barcodeData.text;
+              
+           }
+           
       }, function(error) {
           
       });
 
-  };
+  }; 
+
+
+   $scope.prueba = function(dato,date,flag){    
+        $scope.input_invoice=dato;
+         
+      
+    }
 
    /*This function save the invoices in the localStorage
    */
    $scope.saveLocalInvoice = function(){
+    var sizeCode=$scope.input_invoice.length;
+    if(sizeCode == 34 || sizeCode == 50){ 
      if(BlankFactory.saveInvoices($scope.input_invoice,$scope.input_date,$scope.flagTemporal)){
       $scope.input_invoice=null;
       $scope.input_date = new Date();
@@ -35,13 +52,20 @@ function ($scope,$state,$ionicHistory, $cordovaBarcodeScanner,services,cfpLoadin
              BlankFactory.showToast(translatedValue, 'long', 'center');
         });
      }
+   }else{
+                $translate('ERROR_CODE_INVOICE').then(function (translatedValue) { 
+                                    BlankFactory.showToast(translatedValue, 'long', 'center');
+                                 });
+           }
      
    }
 
    $scope.sendInvoice = function(){   
         cfpLoadingBar.start();
         cfpLoadingBar.inc(); 
-           if($scope.input_invoice){
+       
+        var sizeCode=$scope.input_invoice.length;
+           if(sizeCode == 34 || sizeCode == 50){ 
                 services.sendInvoice($scope.input_invoice,$scope.input_date,$scope.flagTemporal).then(function(data){  
                              if(data){
                                       $scope.input_invoice='';
@@ -64,15 +88,20 @@ function ($scope,$state,$ionicHistory, $cordovaBarcodeScanner,services,cfpLoadin
                                          cfpLoadingBar.complete(); 
                               }
                        },function(err){
-
-                                $translate('NOT_SAVED').then(function (translatedValue) { 
-                                    BlankFactory.showToast(translatedValue, 'long', 'center');
-                                 });
-                               cfpLoadingBar.complete();
+                                   var sendConfirm = $translate('ERROR_SEND_INVOICE').then(function (translatedValue) { 
+                                   var confrm = confirm(translatedValue);
+                                      if (confrm){ 
+                                          $scope.saveLocalInvoice(); 
+                                         cfpLoadingBar.complete();
+                                       }else{
+                                        cfpLoadingBar.complete();
+                                       }
+                                  });//end confirm
+                               
                              }
                       );
            }else{
-                $translate('NOT_EMPTY_INVOICE').then(function (translatedValue) { 
+                $translate('ERROR_CODE_INVOICE').then(function (translatedValue) { 
                                     BlankFactory.showToast(translatedValue, 'long', 'center');
                                  });
                                cfpLoadingBar.complete();
@@ -134,49 +163,49 @@ function ($scope,$state,$ionicHistory, $stateParams,services,BlankFactory,$trans
       var LOCAL_USER_KEY='userLocal';
       var localInvoices='Invoices'+window.localStorage.getItem(LOCAL_USER_KEY ); 
       var sendConfirm = $translate('MSG_CONFIRM_SEND_ALL_INVOICES').then(function (translatedValue) { 
-                             var confrm = confirm(translatedValue);
-                             if (confrm){
-        cfpLoadingBar.start();
-        cfpLoadingBar.inc();
-        var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices));
-        var error=false;
-        getAllInvoice.forEach( function(valor, indice, array) {
+        var confrm = confirm(translatedValue,'Hola');
+        if (confrm){
+                cfpLoadingBar.start();
+                cfpLoadingBar.inc();
+                var getAllInvoice = JSON.parse(window.localStorage.getItem(localInvoices));
+                var error=false;
+                var cont = 0;
+                var lengt=getAllInvoice.length; 
                 
-                 var dateTemp= new Date(valor.Date);
-                
-                 services.sendInvoice(valor.Invoice,dateTemp,valor.Flag).then(function(data){ 
-                             
-                             BlankFactory.deleteInvoice(localInvoices,valor.Invoice);
-                             
-                       },function(err){
-                               
-                                error=true;
-                             }
-                      );
-           });
+                getAllInvoice.forEach( function(valor, indice, array) { 
+                   
+                            var dateTemp= new Date(valor.Date);                
+                            services.sendInvoice(valor.Invoice,dateTemp,valor.Flag).then(function(data){ 
+                                    
+                                   cont = cont +1; 
+                                   BlankFactory.deleteInvoice(localInvoices,valor.Invoice);
+                                  
+                                   if(cont==lengt){ 
+                                            window.localStorage.removeItem(localInvoices);
+                                            $translate('SAVED').then(function (translatedValue) { 
+                                                                   BlankFactory.showToast(translatedValue, 'long', 'center');
+                                                                 }); 
+                                            $ionicHistory.nextViewOptions({
+                                                                  disableBack: true
+                                                                 }); 
+                                            $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
+                                            cfpLoadingBar.complete();
+                                    }
+                            },function(err){ 
+                                  $scope.list_invoice=getAllInvoice;
+                                  $translate('ERROR_CONNECTION_NOT_SEND').then(function (translatedValue) { 
+                                             var mgs=valor.Invoice+':'+translatedValue;
+                                             BlankFactory.showToast(mgs, 'long', 'center');
+                                           });
+                                   $state.reload(true);
+                                  cfpLoadingBar.complete();
+                                 
+                              }
+                            );
+                }); 
         
-         if(error){
-           $translate('NOT_SAVED').then(function (translatedValue) { 
-                                           BlankFactory.showToast(translatedValue, 'long', 'center');
-                                         });
-           cfpLoadingBar.complete();
-        } else{
-          window.localStorage.removeItem(localInvoices);
-           $translate('SAVED').then(function (translatedValue) { 
-                                           BlankFactory.showToast(translatedValue, 'long', 'center');
-                                         }); 
-             $ionicHistory.nextViewOptions({
-                disableBack: true
-              }); 
-            $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
-            //}
-           
-         
-          cfpLoadingBar.complete();
         }
-        
-      }
-                         });
+      });
       
     }
   
@@ -219,6 +248,12 @@ function ($scope,$state,$ionicHistory, $stateParams,$rootScope,$translate,cfpLoa
 
  $scope.authenticate= function(){
             //get data for view
+            $scope.valid = {}
+            $scope.valid.show = false;
+
+            $scope.error_server_connection = {}
+            $scope.error_server_connection.show = false; 
+
             cfpLoadingBar.start();
             cfpLoadingBar.inc();
             var user=   $scope.user;
@@ -249,10 +284,22 @@ function ($scope,$state,$ionicHistory, $stateParams,$rootScope,$translate,cfpLoa
                                       $scope.valid = {}
                                       $scope.valid.show = true; 
                               }
-                       },function(err){
+                       },function(err){ 
+                               
+                               var valid=services.validLocalCredentials($scope.user,$scope.password);
+                   
+                               if(valid){
+                                             cfpLoadingBar.complete(); 
+                                             $ionicHistory.nextViewOptions({
+                                              disableBack: true
+                                             });
+                                          $ionicHistory.clearCache().then(function(){ $state.go('menu.home');});
+                               }else{
+                                            $scope.error_server_connection = {}
+                                            $scope.error_server_connection.show = true; 
+
                                 cfpLoadingBar.complete();
-                               $scope.error_server_connection = {}
-                               $scope.error_server_connection.show = true; 
+                               } 
                              }
                       );
                 }else{

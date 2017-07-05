@@ -15,20 +15,16 @@
  .bar-stable .button.button-clear{
  	color:#00923f;
  }
- .bar .title{
-    background-image: url("img/header.png");
-    background-size: 50% 100%;
-    background-repeat: no-repeat;
-    background-position: center; 
- }
+ 
  .footer2 {  
-    top: 0;
+    top: 90%;
     right: 0;
     left: 0;
     text-align: center; 
     color: #26A05F;
     font-size: 15px;
     font-weight: 500;
+
      }
 
      .label-footer{

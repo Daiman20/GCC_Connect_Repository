@@ -9,8 +9,10 @@
   <br/>
     <ion-list id="facturasNoEnviadas-list2" ng-model="list_invoice">
      <!--<span translate="LABEL_INVOICE" class="input-label">Nº Factura</span>-->
-      <ion-item class="item-icon-left balanced" id="facturasNoEnviadas-list-item1" ng-repeat="list in list_invoice" 
+      <!--<ion-item class="item-icon-left balanced" id="facturasNoEnviadas-list-item1" ng-repeat="list in list_invoice" 
       href="#/side-menu21/page4" ng-click="viewInvoice(list.Invoice,list.Date,list.Flag)">
+        <i class="icon ion-document" ></i>{{ list.Invoice }}</ion-item>-->
+        <ion-item class="item-icon-left balanced" id="facturasNoEnviadas-list-item1" ng-repeat="list in list_invoice" >
         <i class="icon ion-document" ></i>{{ list.Invoice }}</ion-item>
 
     </ion-list>
